@@ -106,7 +106,7 @@ class NoteList extends StatelessWidget {
         }
         return ListView(
           padding: const EdgeInsets.only(bottom: 80),
-          children: snapshot.data.docs.map((document) {
+          children: snapshot.data!.docs.map((document) {
             return Card(
               child: ListTile(
                 title: Text(document['title']),
@@ -127,10 +127,10 @@ class NoteList extends StatelessWidget {
                   ),
                 ),
               ),
-            )
-          }),
+            );
+          }).toList()
         );
-      },
+      }
     );
   }
 }
