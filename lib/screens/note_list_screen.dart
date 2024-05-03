@@ -74,18 +74,20 @@ class _NoteListScreenState extends State<NoteListScreen> {
 
                         NoteService.addNote(_titleController.text,
                                 _descriptionController.text)
-                            .whenComplete(() => Navigator.of(context).pop());
+                            .whenComplete(() {
+                              _titleController.clear();
+                              _descriptionController.clear();
+                          Navigator.of(context).pop();
 
-                        // FirebaseFirestore.instance
-                        //     .collection('notes')
-                        //     .add(newNote)
-                        //     .whenComplete(
-                        //   () {
-                        //     Navigator.of(context).pop();
-                        //   },
-                        // );
-                        _titleController.clear();
-                        _descriptionController.clear();
+                          // FirebaseFirestore.instance
+                          //     .collection('notes')
+                          //     .add(newNote)
+                          //     .whenComplete(
+                          //   () {
+                          //     Navigator.of(context).pop();
+                          //   },
+                          // );
+                        });
                       },
                       child: const Text('Save')),
                 ],
@@ -243,7 +245,8 @@ class NoteList extends StatelessWidget {
                                           });
                                           Navigator.of(context).pop();
 
-                                          NoteService.deleteNote(document['id']);
+                                          NoteService.deleteNote(
+                                              document['id']);
                                         },
                                         child: const Text('Delete')),
                                   ],
