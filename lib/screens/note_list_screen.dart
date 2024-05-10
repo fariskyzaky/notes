@@ -15,7 +15,9 @@ class _NoteListScreenState extends State<NoteListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Notes')),
+      appBar: AppBar(
+        title: const Text('Notes')
+      ),
       body: const NoteList(),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -64,49 +66,11 @@ class NoteList extends StatelessWidget {
                             },
                           );
                         },
-                        title: Text(document['title']),
-                        subtitle: Text(document['description']),
+                        title: Text(document.title),
+                        subtitle: Text(document.description),
                         trailing: InkWell(
                           onTap: () {
-                            showDialog(
-                              context: context,
-                              builder: (context) {
-                                return AlertDialog(
-                                  content: const Column(
-                                    children: [Text('Delete Data')],
-                                  ),
-                                  actions: [
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal:
-                                              30), //--> Mengatur jarak antar tombol
-                                      child: ElevatedButton(
-                                        onPressed: () {
-                                          Navigator.of(context)
-                                              .pop(); //--> Tombol Menutup dialog atau cancel
-                                        },
-                                        child: const Text('Cancel'),
-                                      ),
-                                    ),
-                                    ElevatedButton(
-                                        onPressed: () {
-                                          FirebaseFirestore.instance
-                                              .collection('notes')
-                                              .doc(document['id'])
-                                              .delete()
-                                              .catchError((e) {
-                                            print(e);
-                                          });
-                                          Navigator.of(context).pop();
-
-                                          NoteService.deleteNote(
-                                              document['id']);
-                                        },
-                                        child: const Text('Delete')),
-                                  ],
-                                );
-                              },
-                            );
+                            NoteService.deleteNote(document);
                           },
                           child: const Padding(
                             padding: EdgeInsets.symmetric(vertical: 10),
