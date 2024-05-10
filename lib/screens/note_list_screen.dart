@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:notes/services/note_service.dart';
 import 'package:notes/widgets/note_dialog.dart';
@@ -11,13 +10,10 @@ class NoteListScreen extends StatefulWidget {
 }
 
 class _NoteListScreenState extends State<NoteListScreen> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Notes')
-      ),
+      appBar: AppBar(title: const Text('Notes')),
       body: const NoteList(),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -40,7 +36,6 @@ class NoteList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return StreamBuilder(
         stream: NoteService.getNoteList(),
         builder: (context, snapshot) {
@@ -66,6 +61,14 @@ class NoteList extends StatelessWidget {
                             },
                           );
                         },
+                        leading: document.imageUrl != null
+                          ? CircleAvatar(
+                            backgroundImage: NetworkImage(document.imageUrl!),
+                            )
+                          : const CircleAvatar(
+                            backgroundColor: Colors.grey,
+                            child: Icon(Icons.image),
+                            ),
                         title: Text(document.title),
                         subtitle: Text(document.description),
                         trailing: InkWell(
