@@ -39,7 +39,9 @@ dependencies:
   cloud_firestore: ^4.16.1
   firebase_storage: ^11.7.5
   path: ^1.9.0
-  image_picker: ^1.1.1
+  image_picker: ^1.1.1  #<-- Berfungsi untuk mengakses gallery
+  geocoding: ^3.0.0     #<-- Berfungsi untuk menampilkan lokasi saat ini
+  geolocator: ^11.0.0   #<-- Berfungsi untuk mengambil address (longitude & lattitude)
 
 dev_dependencies:
   flutter_test:

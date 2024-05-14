@@ -70,10 +70,13 @@ class _NoteDialogState extends State<NoteDialog> {
               'Image: ',
             ),
           ),
-          _imageFile != null ? Image.file(_imageFile!) : Container(),
-          TextButton(
-            onPressed: _pickImage,
-            child: const Text('Pick Image'),
+          Expanded(
+            child: _imageFile != null
+                ? Image.file(_imageFile!, fit: BoxFit.cover)
+                : (widget.note?.imageUrl != null &&
+                        Uri.parse(widget.note!.imageUrl!).isAbsolute
+                    ? Image.network(widget.note!.imageUrl!, fit: BoxFit.cover)
+                    : Container()),
           ),
         ],
       ),
@@ -94,20 +97,24 @@ class _NoteDialogState extends State<NoteDialog> {
               String? imageUrl;
               if (_imageFile != null) {
                 imageUrl = await NoteService.uploadImage(_imageFile!);
+              } else {
+                imageUrl = widget.note?.imageUrl;
               }
               Note note = Note(
                 id: widget.note?.id,
                 title: _titleController.text,
                 description: _descriptionController.text,
                 imageUrl: imageUrl,
-                createdAt: widget.note?.createdAt, imageURL: null,
+                createdAt: widget.note?.createdAt,
+                imageURL: null,
               );
 
               if (widget.note == null) {
-                NoteService.addNote(note).whenComplete(() => 
-                  Navigator.of(context).pop());
+                NoteService.addNote(note)
+                    .whenComplete(() => Navigator.of(context).pop());
               } else {
-                NoteService.updateNote(note).whenComplete(() => Navigator.of(context).pop());
+                NoteService.updateNote(note)
+                    .whenComplete(() => Navigator.of(context).pop());
               }
             },
             child: Text(widget.note == null ? 'Save' : 'Update')),
