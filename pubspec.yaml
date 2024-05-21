@@ -41,7 +41,8 @@ dependencies:
   path: ^1.9.0
   image_picker: ^1.1.1  #<-- Berfungsi untuk mengakses gallery
   geocoding: ^3.0.0     #<-- Berfungsi untuk menampilkan lokasi saat ini
-  geolocator: ^11.0.0   #<-- Berfungsi untuk mengambil address (longitude & lattitude)
+  geolocator: ^12.0.0   #<-- Berfungsi untuk mengambil address (longitude & lattitude)
+  url_launcher: ^6.2.6
 
 dev_dependencies:
   flutter_test:
